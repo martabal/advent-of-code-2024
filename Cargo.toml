@@ -1,0 +1,18 @@
+[workspace]
+resolver = "2"
+members = ["crates/day01"]
+
+[profile.release]
+opt-level = 'z'
+lto = true
+codegen-units = 1
+panic = 'abort'
+strip = "symbols"
+
+[workspace.lints.rust]
+unsafe_code = "forbid"
+
+[workspace.lints.clippy]
+enum_glob_use = { level = "deny", priority = 2 }
+pedantic = { level = "deny", priority = 1 }
+nursery = { level = "deny", priority = 0 }

@@ -1,0 +1,27 @@
+name: Test
+on:
+  pull_request:
+  push:
+    branches:
+      - "main"
+
+jobs:
+  server-unit-tests:
+    name: Run test suites
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run formatter
+        run: cargo fmt
+        if: ${{ !cancelled() }}
+
+      - name: Run unit tests
+        run: cargo test
+        if: ${{ !cancelled() }}
+
+      - name: Run clippy
+        run: cargo clippy
+        if: ${{ !cancelled() }}
