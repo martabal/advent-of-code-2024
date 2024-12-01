@@ -6,20 +6,7 @@ My goal this year is (I hope so) to resolve everyday challenges using rust. If I
 
 ## Solutions
 
-### Rust
-
-|  Day  | Part 1 | Part 2 |
-| :---: | :----: | :----: |
-|   1   |   ✅    |   ✅    |
-
-### C
-
-|  Day  | Part 1 | Part 2 |
-| :---: | :----: | :----: |
-|   1   |   ✅    |   ✅    |
-
-### C++
-
-|  Day  | Part 1 | Part 2 |
-| :---: | :----: | :----: |
-|   1   |   ✅    |   ✅    |
+|  Day  |  Rust  |        |  C++   |        |   C    |        |
+| :---: | :----: | :----: | :----: | :----: | :----: | :----: |
+|       | Part 1 | Part 2 | Part 1 | Part 2 | Part 1 | Part 2 |
+|   1   |   ✅    |   ✅    |   ✅    |   ✅    |   ✅    | ✅      |
