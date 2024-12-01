@@ -1,0 +1,18 @@
+# started on Sun Dec  1 17:24:15 2024
+
+
+ Performance counter stats for './day01-cpp-clang++-O3.out' (1000 runs):
+
+              1.32 msec task-clock:u                     #    0.757 CPUs utilized               ( +-  0.26% )
+                 0      context-switches:u               #    0.000 /sec                      
+                 0      cpu-migrations:u                 #    0.000 /sec                      
+               134      page-faults:u                    #  101.378 K/sec                       ( +-  0.04% )
+         2,785,722      cycles:u                         #    2.108 GHz                         ( +-  0.29% )
+           508,924      stalled-cycles-frontend:u        #   18.27% frontend cycles idle        ( +-  0.40% )
+         6,106,228      instructions:u                   #    2.19  insn per cycle            
+                                                  #    0.08  stalled cycles per insn     ( +-  0.00% )
+         1,032,092      branches:u                       #  780.831 M/sec                       ( +-  0.00% )
+            25,946      branch-misses:u                  #    2.51% of all branches             ( +-  0.04% )
+
+        0.00174530 +- 0.00000576 seconds time elapsed  ( +-  0.33% )
+

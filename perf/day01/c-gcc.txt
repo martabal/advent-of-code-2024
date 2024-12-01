@@ -1,18 +1,18 @@
-# started on Sun Dec  1 17:17:07 2024
+# started on Sun Dec  1 17:22:31 2024
 
 
  Performance counter stats for './day01-c-gcc.out' (1000 runs):
 
-              0.73 msec task-clock:u                     #    0.647 CPUs utilized               ( +-  0.29% )
+              2.04 msec task-clock:u                     #    0.828 CPUs utilized               ( +-  0.20% )
                  0      context-switches:u               #    0.000 /sec                      
                  0      cpu-migrations:u                 #    0.000 /sec                      
-                64      page-faults:u                    #   88.082 K/sec                       ( +-  0.06% )
-         1,560,906      cycles:u                         #    2.148 GHz                         ( +-  0.23% )
-           444,176      stalled-cycles-frontend:u        #   28.46% frontend cycles idle        ( +-  0.27% )
-         4,175,395      instructions:u                   #    2.67  insn per cycle            
-                                                  #    0.11  stalled cycles per insn     ( +-  0.00% )
-           760,265      branches:u                       #    1.046 G/sec                       ( +-  0.00% )
-            13,902      branch-misses:u                  #    1.83% of all branches             ( +-  0.05% )
+                64      page-faults:u                    #   31.340 K/sec                       ( +-  0.06% )
+         6,829,150      cycles:u                         #    3.344 GHz                         ( +-  0.16% )
+           462,011      stalled-cycles-frontend:u        #    6.77% frontend cycles idle        ( +-  0.58% )
+        18,650,255      instructions:u                   #    2.73  insn per cycle            
+                                                  #    0.02  stalled cycles per insn     ( +-  0.00% )
+         2,512,765      branches:u                       #    1.230 G/sec                       ( +-  0.00% )
+            14,797      branch-misses:u                  #    0.59% of all branches             ( +-  0.05% )
 
-        0.00112379 +- 0.00000476 seconds time elapsed  ( +-  0.42% )
+        0.00246745 +- 0.00000651 seconds time elapsed  ( +-  0.26% )
 
