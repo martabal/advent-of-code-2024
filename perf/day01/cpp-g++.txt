@@ -1,0 +1,18 @@
+# started on Sun Dec  1 16:37:45 2024
+
+
+ Performance counter stats for './day01-cpp-g++.out' (1000 runs):
+
+              8.69 msec task-clock:u                     #    0.958 CPUs utilized               ( +-  0.05% )
+                 0      context-switches:u               #    0.000 /sec                      
+                 0      cpu-migrations:u                 #    0.000 /sec                      
+               134      page-faults:u                    #   15.414 K/sec                       ( +-  0.04% )
+        32,941,128      cycles:u                         #    3.789 GHz                         ( +-  0.03% )
+         5,753,624      stalled-cycles-frontend:u        #   17.47% frontend cycles idle        ( +-  0.15% )
+        89,925,760      instructions:u                   #    2.73  insn per cycle            
+                                                  #    0.06  stalled cycles per insn     ( +-  0.00% )
+        15,381,088      branches:u                       #    1.769 G/sec                       ( +-  0.00% )
+            25,860      branch-misses:u                  #    0.17% of all branches             ( +-  0.03% )
+
+        0.00907434 +- 0.00000525 seconds time elapsed  ( +-  0.06% )
+

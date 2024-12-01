@@ -6,7 +6,7 @@ on:
       - "main"
 
 jobs:
-  server-unit-tests:
+  rust-unit-tests:
     name: Run test suites
     runs-on: ubuntu-latest
 
@@ -25,3 +25,59 @@ jobs:
       - name: Run clippy
         run: cargo clippy
         if: ${{ !cancelled() }}
+
+  rust-build:
+    name: Build rust
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run build
+        run: cargo build --release
+        if: ${{ !cancelled() }}
+
+  cpp-gnu-build:
+    name: Build C++ with g++
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Build
+        run: g++ ./cpp/*.cc
+
+  cpp-clang-build:
+    name: Build C++ with clang
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Build
+        run: clang++ ./cpp/*.cc
+
+  gcc-build:
+    name: Build C with gcc
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Build
+        run: gcc ./c/*.c
+
+  clang-build:
+    name: Build C with clang
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Build
+        run: clang ./c/*.c
