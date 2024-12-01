@@ -103,3 +103,36 @@ jobs:
 
       - name: Build
         run: clang ./c/*.c
+
+  perf-unit-tests:
+    name: Test run-perf
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install poetry
+        run: pipx install poetry
+
+      - name: Setup poetry
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.12
+          cache: "poetry"
+
+      - name: Install python dependencies
+        run: poetry --directory perf install --with dev
+
+      - name: Run python linter
+        run: make check-perf
+        if: ${{ !cancelled() }}
+
+      - name: Run python formatter
+        run: make format-perf
+        if: ${{ !cancelled() }}

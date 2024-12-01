@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "perf"
+version = "0.1.0"
+description = "Run perf"
+authors = ["martabal <74269598+martabal@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+questionary = "^2.0.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.8.0"

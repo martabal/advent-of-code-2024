@@ -1,18 +1,18 @@
-# started on Sun Dec  1 17:22:59 2024
+# started on Sun Dec  1 19:08:46 2024
 
 
- Performance counter stats for './day01-c-clang-O3.out' (1000 runs):
+ Performance counter stats for './build/day01/day01-c-clang-O3.out' (1000 runs):
 
-              0.70 msec task-clock:u                     #    0.651 CPUs utilized               ( +-  0.27% )
+              0.72 msec task-clock:u                     #    0.648 CPUs utilized               ( +-  0.37% )
                  0      context-switches:u               #    0.000 /sec                      
                  0      cpu-migrations:u                 #    0.000 /sec                      
-                63      page-faults:u                    #   89.744 K/sec                       ( +-  0.06% )
-         1,514,394      cycles:u                         #    2.157 GHz                         ( +-  0.22% )
-           450,095      stalled-cycles-frontend:u        #   29.72% frontend cycles idle        ( +-  0.29% )
-         3,567,715      instructions:u                   #    2.36  insn per cycle            
+                63      page-faults:u                    #   87.280 K/sec                       ( +-  0.06% )
+         1,538,480      cycles:u                         #    2.131 GHz                         ( +-  0.30% )
+           460,960      stalled-cycles-frontend:u        #   29.96% frontend cycles idle        ( +-  0.38% )
+         3,570,161      instructions:u                   #    2.32  insn per cycle            
                                                   #    0.13  stalled cycles per insn     ( +-  0.00% )
-           637,746      branches:u                       #  908.478 M/sec                       ( +-  0.00% )
-            14,611      branch-misses:u                  #    2.29% of all branches             ( +-  0.05% )
+           638,369      branches:u                       #  884.394 M/sec                       ( +-  0.00% )
+            14,653      branch-misses:u                  #    2.30% of all branches             ( +-  0.05% )
 
-        0.00107829 +- 0.00000400 seconds time elapsed  ( +-  0.37% )
+        0.00111414 +- 0.00000558 seconds time elapsed  ( +-  0.50% )
 

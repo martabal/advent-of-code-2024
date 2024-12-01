@@ -1,18 +1,18 @@
-# started on Sun Dec  1 17:24:15 2024
+# started on Sun Dec  1 19:09:13 2024
 
 
- Performance counter stats for './day01-cpp-clang++-O3.out' (1000 runs):
+ Performance counter stats for './build/day01/day01-cpp-clang++-O3.out' (1000 runs):
 
-              1.32 msec task-clock:u                     #    0.757 CPUs utilized               ( +-  0.26% )
+              1.31 msec task-clock:u                     #    0.771 CPUs utilized               ( +-  0.32% )
                  0      context-switches:u               #    0.000 /sec                      
                  0      cpu-migrations:u                 #    0.000 /sec                      
-               134      page-faults:u                    #  101.378 K/sec                       ( +-  0.04% )
-         2,785,722      cycles:u                         #    2.108 GHz                         ( +-  0.29% )
-           508,924      stalled-cycles-frontend:u        #   18.27% frontend cycles idle        ( +-  0.40% )
-         6,106,228      instructions:u                   #    2.19  insn per cycle            
+               134      page-faults:u                    #  102.500 K/sec                       ( +-  0.04% )
+         2,762,913      cycles:u                         #    2.113 GHz                         ( +-  0.34% )
+           504,412      stalled-cycles-frontend:u        #   18.26% frontend cycles idle        ( +-  0.45% )
+         6,108,709      instructions:u                   #    2.21  insn per cycle            
                                                   #    0.08  stalled cycles per insn     ( +-  0.00% )
-         1,032,092      branches:u                       #  780.831 M/sec                       ( +-  0.00% )
-            25,946      branch-misses:u                  #    2.51% of all branches             ( +-  0.04% )
+         1,032,728      branches:u                       #  789.956 M/sec                       ( +-  0.00% )
+            25,925      branch-misses:u                  #    2.51% of all branches             ( +-  0.04% )
 
-        0.00174530 +- 0.00000576 seconds time elapsed  ( +-  0.33% )
+        0.00169529 +- 0.00000648 seconds time elapsed  ( +-  0.38% )
 

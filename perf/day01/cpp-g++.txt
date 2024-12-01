@@ -1,18 +1,18 @@
-# started on Sun Dec  1 17:21:52 2024
+# started on Sun Dec  1 19:08:48 2024
 
 
- Performance counter stats for './day01-cpp-g++.out' (1000 runs):
+ Performance counter stats for './build/day01/day01-cpp-g++.out' (1000 runs):
 
-              9.07 msec task-clock:u                     #    0.951 CPUs utilized               ( +-  0.12% )
+              9.20 msec task-clock:u                     #    0.946 CPUs utilized               ( +-  0.13% )
                  0      context-switches:u               #    0.000 /sec                      
                  0      cpu-migrations:u                 #    0.000 /sec                      
-               134      page-faults:u                    #   14.780 K/sec                       ( +-  0.04% )
-        33,757,091      cycles:u                         #    3.723 GHz                         ( +-  0.10% )
-         5,659,526      stalled-cycles-frontend:u        #   16.77% frontend cycles idle        ( +-  0.33% )
-        89,925,763      instructions:u                   #    2.66  insn per cycle            
+               134      page-faults:u                    #   14.572 K/sec                       ( +-  0.04% )
+        33,934,643      cycles:u                         #    3.690 GHz                         ( +-  0.10% )
+         5,631,088      stalled-cycles-frontend:u        #   16.59% frontend cycles idle        ( +-  0.31% )
+        89,928,245      instructions:u                   #    2.65  insn per cycle            
                                                   #    0.06  stalled cycles per insn     ( +-  0.00% )
-        15,381,091      branches:u                       #    1.696 G/sec                       ( +-  0.00% )
-            26,155      branch-misses:u                  #    0.17% of all branches             ( +-  0.03% )
+        15,381,729      branches:u                       #    1.673 G/sec                       ( +-  0.00% )
+            26,239      branch-misses:u                  #    0.17% of all branches             ( +-  0.04% )
 
-         0.0095296 +- 0.0000132 seconds time elapsed  ( +-  0.14% )
+         0.0097205 +- 0.0000150 seconds time elapsed  ( +-  0.15% )
 
