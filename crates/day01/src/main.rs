@@ -7,8 +7,19 @@ fn main() {
     let mut distances: Vec<u32> = Vec::new();
 
     assert!(left_column.len() == right_column.len());
-    left_column.sort_unstable();
-    right_column.sort_unstable();
+    #[cfg(feature = "unstable")]
+    {
+        left_column.sort_unstable();
+        right_column.sort_unstable();
+    }
+    #[cfg(not(feature = "unstable"))]
+    {
+        #[allow(clippy::stable_sort_primitive)]
+        left_column.sort();
+        #[allow(clippy::stable_sort_primitive)]
+        right_column.sort();
+    }
+
     for (i, _) in left_column.iter().enumerate() {
         distances.push((left_column[i] - right_column[i]).unsigned_abs());
     }

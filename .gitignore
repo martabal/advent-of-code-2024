@@ -1,1 +1,6 @@
 /target
+*.out
+.vscode
+/build
+/perf
+Makefile
