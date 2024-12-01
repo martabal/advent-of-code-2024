@@ -26,6 +26,28 @@ jobs:
         run: cargo clippy
         if: ${{ !cancelled() }}
 
+  c-unit-tests:
+    name: Formatting Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run clang-format style check for C
+        uses: jidicula/clang-format-action@v4.14.0
+        with:
+          clang-format-version: "13"
+          check-path: "./c"
+
+  cpp-unit-tests:
+    name: Formatting Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run clang-format style check for C++
+        uses: jidicula/clang-format-action@v4.14.0
+        with:
+          clang-format-version: "13"
+          check-path: "./cpp"
+
   rust-build:
     name: Build rust
     runs-on: ubuntu-latest
