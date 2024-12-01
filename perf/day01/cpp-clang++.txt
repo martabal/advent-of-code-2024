@@ -1,0 +1,18 @@
+# started on Sun Dec  1 16:37:18 2024
+
+
+ Performance counter stats for './day01-cpp-clang++.out' (1000 runs):
+
+              1.23 msec task-clock:u                     #    0.780 CPUs utilized               ( +-  0.11% )
+                 0      context-switches:u               #    0.000 /sec                      
+                 0      cpu-migrations:u                 #    0.000 /sec                      
+               134      page-faults:u                    #  109.135 K/sec                       ( +-  0.04% )
+         2,631,928      cycles:u                         #    2.144 GHz                         ( +-  0.11% )
+           474,243      stalled-cycles-frontend:u        #   18.02% frontend cycles idle        ( +-  0.16% )
+         6,106,227      instructions:u                   #    2.32  insn per cycle            
+                                                  #    0.08  stalled cycles per insn     ( +-  0.00% )
+         1,032,092      branches:u                       #  840.574 M/sec                       ( +-  0.00% )
+            25,772      branch-misses:u                  #    2.50% of all branches             ( +-  0.04% )
+
+        0.00157476 +- 0.00000256 seconds time elapsed  ( +-  0.16% )
+
