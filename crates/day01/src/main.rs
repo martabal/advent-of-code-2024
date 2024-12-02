@@ -4,7 +4,6 @@ use std::io::{self, BufRead};
 fn main() {
     // --- Part One ---
     let (mut left_column, mut right_column) = read_file("crates/day01/input.txt").unwrap();
-    let mut distances: Vec<u32> = Vec::new();
 
     assert!(left_column.len() == right_column.len());
     #[cfg(feature = "unstable")]
@@ -20,14 +19,14 @@ fn main() {
         right_column.sort();
     }
 
+    let mut sum: i32 = 0;
     for (i, _) in left_column.iter().enumerate() {
-        distances.push((left_column[i] - right_column[i]).unsigned_abs());
+        sum += (left_column[i] - right_column[i]).abs();
     }
-    let mut sum: u32 = distances.iter().copied().sum();
     println!("Part One solution: sum is {sum}");
 
     // --- Part Two ---
-    let mut appear: Vec<u32> = Vec::new();
+    sum = 0;
     for e in &left_column {
         let count: i32 = right_column
             .iter()
@@ -35,9 +34,8 @@ fn main() {
             .count()
             .try_into()
             .unwrap();
-        appear.push((*e * count).try_into().unwrap());
+        sum += *e * count;
     }
-    sum = appear.iter().copied().sum();
     println!("Part Two solution: sum is {sum}");
 }
 

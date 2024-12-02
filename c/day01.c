@@ -56,18 +56,14 @@ int main() {
   qsort(left_column, len, sizeof(int), compare_ints);
   qsort(right_column, len, sizeof(int), compare_ints);
 
-  unsigned int *distances = malloc(len * sizeof(unsigned int));
   unsigned int sum = 0;
 
   for (size_t i = 0; i < len; i++) {
-    distances[i] = abs(left_column[i] - right_column[i]);
-    sum += distances[i];
+    sum += abs(left_column[i] - right_column[i]);
   }
   printf("Part One solution: sum is %u\n", sum);
-  free(distances);
 
   // --- Part Two ---
-  unsigned int *appear = malloc(len * sizeof(unsigned int));
   sum = 0;
 
   for (size_t i = 0; i < len; i++) {
@@ -77,12 +73,10 @@ int main() {
         count++;
       }
     }
-    appear[i] = left_column[i] * count;
-    sum += appear[i];
+    sum += left_column[i] * count;
   }
 
   printf("Part Two solution: sum is %u\n", sum);
-  free(appear);
   free(left_column);
   free(right_column);
 

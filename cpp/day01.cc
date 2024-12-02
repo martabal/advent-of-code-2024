@@ -33,7 +33,7 @@ read_file(const std::string &input) {
 int main() {
   // --- Part One ---
   auto [left_column, right_column] = read_file("crates/day01/input.txt");
-  std::vector<unsigned int> distances;
+  unsigned int sum = 0;
 
   if (left_column.size() != right_column.size()) {
     throw std::runtime_error("Column sizes do not match");
@@ -43,22 +43,20 @@ int main() {
   std::sort(right_column.begin(), right_column.end());
 
   for (size_t i = 0; i < left_column.size(); ++i) {
-    distances.push_back(
-        static_cast<unsigned int>(std::abs(left_column[i] - right_column[i])));
+    sum +=
+        (static_cast<unsigned int>(std::abs(left_column[i] - right_column[i])));
   }
 
-  unsigned int sum = std::accumulate(distances.begin(), distances.end(), 0u);
   std::cout << "Part One solution: sum is " << sum << std::endl;
 
   // --- Part Two ---
+  sum = 0;
   std::vector<unsigned int> appear;
   for (const auto &e : left_column) {
     unsigned int count =
         std::count(right_column.begin(), right_column.end(), e);
-    appear.push_back(static_cast<unsigned int>(e) * count);
+    sum += static_cast<unsigned int>(e) * count;
   }
-
-  sum = std::accumulate(appear.begin(), appear.end(), 0);
   std::cout << "Part Two solution: sum is " << sum << std::endl;
 
   return 0;
