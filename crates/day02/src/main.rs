@@ -10,19 +10,8 @@ fn has_small_difference(vec: &[i32]) -> bool {
     })
 }
 fn is_safe(e: &[i32]) -> bool {
-    let mut sorted = e.to_vec();
-    #[cfg(feature = "unstable")]
-    {
-        sorted.sort_unstable();
-    }
-    #[cfg(not(feature = "unstable"))]
-    {
-        #[allow(clippy::stable_sort_primitive)]
-        sorted.sort();
-    }
-
     let test = has_small_difference(e);
-    (sorted == e || sorted.iter().rev().eq(e.iter())) && test
+    (e.windows(2).all(|w| w[0] >= w[1]) || e.windows(2).all(|w| w[0] <= w[1])) && test
 }
 fn main() {
     // --- Part One ---
