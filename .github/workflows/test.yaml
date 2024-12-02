@@ -69,8 +69,10 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Build
-        run: g++ ./cpp/*.cc
-
+        run: |
+          for file in cpp/*.cc; do
+              g++ "$file" -o "${file%.cc}"
+          done
   cpp-clang-build:
     name: Build C++ with clang
     runs-on: ubuntu-latest
@@ -80,7 +82,10 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Build
-        run: clang++ ./cpp/*.cc
+        run: |
+          for file in cpp/*.cc; do
+              clang++ "$file" -o "${file%.cc}"
+          done
 
   gcc-build:
     name: Build C with gcc
@@ -91,7 +96,10 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Build
-        run: gcc ./c/*.c
+        run: |
+          for file in c/*.c; do
+              gcc "$file" -o "${file%.c}"
+          done
 
   clang-build:
     name: Build C with clang
@@ -102,4 +110,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Build
-        run: clang ./c/*.c
+        run: |
+          for file in c/*.c; do
+              clang "$file" -o "${file%.c}"
+          done
