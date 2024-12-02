@@ -1,6 +1,6 @@
 [workspace]
 resolver = "2"
-members = ["crates/day01"]
+members = ["crates/day01", "crates/day02"]
 
 [profile.release]
 opt-level = 'z'
