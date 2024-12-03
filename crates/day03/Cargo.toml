@@ -1,10 +1,13 @@
 [package]
 name = "day03"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2021"
 
 [lints]
 workspace = true
 
 [dependencies]
-regex.workspace = true
+regex = { workspace = true, optional = true }
+
+[features]
+regex=["dep:regex"]

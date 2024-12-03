@@ -1,16 +1,46 @@
-use regex::Regex;
 use std::{
     fs::File,
     io::{BufReader, Read},
+    str::FromStr,
 };
+
+#[cfg(not(feature = "regex"))]
+use std::{iter::Peekable, str::Chars};
+
+#[cfg(feature = "regex")]
+use regex::Regex;
+
+#[derive(Debug, Eq, PartialEq)]
+pub struct Problem {
+    program: String,
+}
+
+impl FromStr for Problem {
+    type Err = String;
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        Ok(Self { program: s.into() })
+    }
+}
+
+#[cfg(not(feature = "regex"))]
+/// # Errors
+///
+/// Will return `Err` if there's an error in the parsing/regex
+pub fn count_mul(p: &str) -> Result<i32, Box<dyn std::error::Error>> {
+    let Problem { program } = p.parse()?;
+    let mut parser = ProgramParser::new(&program);
+
+    Ok(parser.parse())
+}
 
 fn main() {
     // --- Part One ---
     let message = read_file("crates/day03/input.txt").unwrap();
     let mut count = count_mul(&message).unwrap();
     println!("Part One solution: sum is {count}");
+
     // --- Part Two ---
-    count = parse_and_calculate(&message);
+    count = parse_with_rules(&message);
     println!("Part Two solution: sum is {count}");
 }
 
@@ -26,6 +56,90 @@ fn find_all_indexes(haystack: &str, needle: &str) -> Vec<usize> {
     indexes
 }
 
+#[cfg(not(feature = "regex"))]
+struct ProgramParser<'a> {
+    iterator: Peekable<Chars<'a>>,
+}
+
+#[cfg(not(feature = "regex"))]
+impl<'a> ProgramParser<'a> {
+    fn new(program: &'a str) -> Self {
+        ProgramParser {
+            iterator: program.chars().peekable(),
+        }
+    }
+
+    fn parse(&mut self) -> i32 {
+        let mut result = 0;
+
+        while self.iterator.peek().is_some() {
+            if self.parse_mul() {
+                if self.iterator.peek() == Some(&'(') {
+                    let _ = self.iterator.next();
+
+                    if let Some(a) = self.parse_number() {
+                        if self.iterator.peek() == Some(&',') {
+                            let _ = self.iterator.next();
+
+                            if let Some(b) = self.parse_number() {
+                                if self.iterator.peek() == Some(&')') {
+                                    let _ = self.iterator.next();
+
+                                    result += a * b;
+                                }
+                            }
+                        }
+                    }
+                }
+            } else {
+                let _ = self.iterator.next();
+            }
+        }
+
+        result.try_into().unwrap()
+    }
+
+    fn parse_mul(&mut self) -> bool {
+        if self.iterator.peek() == Some(&'m') {
+            let _ = self.iterator.next();
+            if self.iterator.peek() == Some(&'u') {
+                let _ = self.iterator.next();
+                if self.iterator.peek() == Some(&'l') {
+                    let _ = self.iterator.next();
+
+                    return true;
+                }
+            }
+        }
+
+        false
+    }
+
+    fn parse_number(&mut self) -> Option<u64> {
+        let mut digits = String::new();
+
+        for _ in 0..3 {
+            if let Some(c) = self.iterator.peek() {
+                if c.is_ascii_digit() {
+                    digits.push(*c);
+
+                    let _ = self.iterator.next();
+
+                    continue;
+                }
+            }
+
+            break;
+        }
+
+        if !digits.is_empty() {
+            return digits.parse::<u64>().ok();
+        }
+
+        None
+    }
+}
+
 fn closest_greater_than(x: usize, y: &[usize]) -> Option<usize> {
     let mut closest: Option<usize> = None;
 
@@ -38,7 +152,7 @@ fn closest_greater_than(x: usize, y: &[usize]) -> Option<usize> {
     closest
 }
 
-fn parse_and_calculate(message: &str) -> i32 {
+fn parse_with_rules(message: &str) -> i32 {
     let do_substring = "do()";
     let do_position = find_all_indexes(message, do_substring);
 
@@ -68,6 +182,7 @@ fn parse_and_calculate(message: &str) -> i32 {
     count
 }
 
+#[cfg(feature = "regex")]
 fn count_mul(message: &str) -> Result<i32, Box<dyn std::error::Error>> {
     let re = Regex::new(r"mul\(\s*(\d+)\s*,\s*(\d+)\s*\)")?;
 
