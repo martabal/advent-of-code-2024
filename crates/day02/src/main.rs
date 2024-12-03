@@ -1,6 +1,6 @@
 use std::{
     fs::File,
-    io::{self, BufRead},
+    io::{BufRead, BufReader},
 };
 
 fn has_small_difference(vec: &[i32]) -> bool {
@@ -15,40 +15,40 @@ fn is_safe(e: &[i32]) -> bool {
 }
 fn main() {
     // --- Part One ---
-    let report = read_file("crates/day02/input.txt").unwrap();
-    let mut safe: u32 = 0;
+    let reports = read_file("crates/day02/input.txt").unwrap();
+    let mut count: u32 = 0;
 
-    for e in &report {
+    for e in &reports {
         if is_safe(e) {
-            safe += 1;
+            count += 1;
         }
     }
-    println!("Part One solution: sum is {safe}");
+    println!("Part One solution: sum is {count}");
 
     // --- Part Two ---
-    safe = 0;
-    for e in &report {
+    count = 0;
+    for e in &reports {
         if is_safe(e) {
-            safe += 1;
+            count += 1;
         } else {
             for (pos, _) in e.iter().enumerate() {
                 let mut new = e.clone();
                 new.remove(pos);
 
                 if is_safe(&new) {
-                    safe += 1;
+                    count += 1;
                     break;
                 }
             }
         }
     }
-    println!("Part Two solution: sum is {safe}");
+    println!("Part Two solution: sum is {count}");
 }
 
 fn read_file(input: &str) -> Result<Vec<Vec<i32>>, Box<dyn std::error::Error>> {
     let mut report: Vec<Vec<i32>> = Vec::new();
     let file = File::open(input)?;
-    let reader = io::BufReader::new(file);
+    let reader = BufReader::new(file);
 
     for line in reader.lines() {
         let line = line?;

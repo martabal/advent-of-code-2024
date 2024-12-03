@@ -1,5 +1,5 @@
 use std::fs::File;
-use std::io::{self, BufRead};
+use std::io::{BufRead, BufReader};
 
 fn main() {
     // --- Part One ---
@@ -43,7 +43,7 @@ fn read_file(input: &str) -> Result<(Vec<i32>, Vec<i32>), Box<dyn std::error::Er
     let mut left_column: Vec<i32> = Vec::new();
     let mut right_column: Vec<i32> = Vec::new();
     let file = File::open(input)?;
-    let reader = io::BufReader::new(file);
+    let reader = BufReader::new(file);
 
     for line in reader.lines() {
         let line = line?;
