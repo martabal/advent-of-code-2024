@@ -27,6 +27,8 @@ fn main() {
 
     // --- Part Two ---
     count = 0;
+
+    // not really optimal, ideally the first pass give hints on what element to remove
     for e in &reports {
         if is_safe(e) {
             count += 1;

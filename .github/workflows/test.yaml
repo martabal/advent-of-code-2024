@@ -73,19 +73,6 @@ jobs:
           for file in cpp/*.cc; do
               g++ "$file" -o "${file%.cc}"
           done
-  cpp-clang-build:
-    name: Build C++ with clang
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Build
-        run: |
-          for file in cpp/*.cc; do
-              clang++ "$file" -o "${file%.cc}"
-          done
 
   gcc-build:
     name: Build C with gcc
@@ -99,18 +86,4 @@ jobs:
         run: |
           for file in c/*.c; do
               gcc "$file" -o "${file%.c}"
-          done
-
-  clang-build:
-    name: Build C with clang
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Build
-        run: |
-          for file in c/*.c; do
-              clang "$file" -o "${file%.c}"
           done

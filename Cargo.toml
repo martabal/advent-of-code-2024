@@ -6,7 +6,7 @@ members = ["crates/day01", "crates/day02", "crates/day03"]
 regex = "1.11.1"
 
 [profile.release]
-opt-level = 'z'
+opt-level = 3
 lto = true
 codegen-units = 1
 panic = 'abort'
