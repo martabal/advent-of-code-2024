@@ -105,7 +105,7 @@ std::vector<size_t> findAllIndexes(const std::string &haystack,
 }
 
 std::optional<size_t> closest_greater_than(size_t x,
-                                         const std::vector<size_t> &values) {
+                                           const std::vector<size_t> &values) {
   std::optional<size_t> closest;
   for (size_t value : values) {
     if (value > x && (!closest || value < *closest)) {
