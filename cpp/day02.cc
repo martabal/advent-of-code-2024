@@ -6,7 +6,7 @@
 #include <vector>
 
 bool has_small_difference(const std::vector<int> &vec) {
-  for (size_t i = 0; i < vec.size() - 1; ++i) {
+  for (size_t i = 0; i < vec.size() - 1; i++) {
     int diff = std::abs(vec[i + 1] - vec[i]);
     if (diff < 1 || diff > 3) {
       return false;
@@ -59,7 +59,7 @@ int main() {
     if (is_safe(e)) {
       safe++;
     } else {
-      for (size_t pos = 0; pos < e.size(); ++pos) {
+      for (size_t pos = 0; pos < e.size(); pos++) {
         std::vector<int> new_e = e;
         new_e.erase(new_e.begin() + pos);
 

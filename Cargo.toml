@@ -1,6 +1,12 @@
 [workspace]
 resolver = "2"
-members = ["crates/day01", "crates/day02", "crates/day03"]
+members = [
+    "crates/helpers",
+    "crates/day01",
+    "crates/day02",
+    "crates/day03",
+    "crates/day04",
+]
 
 [workspace.dependencies]
 regex = "1.11.1"

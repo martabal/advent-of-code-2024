@@ -51,43 +51,33 @@ private:
   std::string::const_iterator iterator;
   std::string::const_iterator end;
 
-  char peek() const { return iterator != end ? *iterator : '\0'; }
+  char peek() const { return (iterator != end) ? *iterator : '\0'; }
 
   void next() {
-    if (iterator != end)
-      ++iterator;
+    if (iterator != end) {
+      iterator++;
+    }
   }
 
   bool parse_mul() {
-    if (peek() == 'm') {
-      next();
-      if (peek() == 'u') {
-        next();
-        if (peek() == 'l') {
-          next();
-          return true;
-        }
+    static const std::string target = "mul";
+    for (char ch : target) {
+      if (peek() != ch) {
+        return false;
       }
+      next();
     }
-    return false;
+    return true;
   }
 
   std::optional<int> parseNumber() {
     std::string digits;
-
-    for (int i = 0; i < 3; ++i) {
-      if (std::isdigit(peek())) {
-        digits.push_back(peek());
-        next();
-      } else {
-        break;
-      }
+    while (digits.size() < 3 && std::isdigit(peek())) {
+      digits.push_back(peek());
+      next();
     }
-
-    if (!digits.empty()) {
-      return std::stoi(digits);
-    }
-    return std::nullopt;
+    return digits.empty() ? std::nullopt
+                          : std::make_optional(std::stoi(digits));
   }
 };
 
