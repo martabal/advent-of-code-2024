@@ -7,7 +7,7 @@
 #define MAX_VALUES 100
 
 bool has_small_difference(int *vec, size_t size) {
-  for (size_t i = 0; i < size - 1; ++i) {
+  for (size_t i = 0; i < size - 1; i++) {
     int diff = abs(vec[i + 1] - vec[i]);
     if (diff < 1 || diff > 3) {
       return false;
@@ -20,7 +20,7 @@ bool is_safe(int *e, size_t size) {
   bool non_increasing = true;
   bool non_decreasing = true;
 
-  for (size_t i = 0; i < size - 1; ++i) {
+  for (size_t i = 0; i < size - 1; i++) {
     if (e[i] < e[i + 1]) {
       non_increasing = false;
     }
@@ -69,7 +69,7 @@ int main() {
 
   // --- Part One ---
   unsigned int safe_count = 0;
-  for (size_t i = 0; i < row_count; ++i) {
+  for (size_t i = 0; i < row_count; i++) {
     if (is_safe(report[i], MAX_VALUES)) {
       safe_count++;
     }
@@ -78,17 +78,17 @@ int main() {
 
   // --- Part Two ---
   safe_count = 0;
-  for (size_t i = 0; i < row_count; ++i) {
+  for (size_t i = 0; i < row_count; i++) {
     if (is_safe(report[i], MAX_VALUES)) {
       safe_count++;
     } else {
-      for (size_t pos = 0; pos < MAX_VALUES; ++pos) {
+      for (size_t pos = 0; pos < MAX_VALUES; pos++) {
         if (report[i][pos] == 0)
           continue;
         int *new = malloc((MAX_VALUES - 1) * sizeof(int));
         size_t new_count = 0;
 
-        for (size_t j = 0; j < MAX_VALUES; ++j) {
+        for (size_t j = 0; j < MAX_VALUES; j++) {
           if (j != pos) {
             new[new_count++] = report[i][j];
           }
@@ -106,7 +106,7 @@ int main() {
   }
   printf("Part Two solution: sum is %u\n", safe_count);
 
-  for (size_t i = 0; i < row_count; ++i) {
+  for (size_t i = 0; i < row_count; i++) {
     free(report[i]);
   }
   free(report);

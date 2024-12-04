@@ -42,7 +42,7 @@ int main() {
   std::sort(left_column.begin(), left_column.end());
   std::sort(right_column.begin(), right_column.end());
 
-  for (size_t i = 0; i < left_column.size(); ++i) {
+  for (size_t i = 0; i < left_column.size(); i++) {
     sum +=
         (static_cast<unsigned int>(std::abs(left_column[i] - right_column[i])));
   }

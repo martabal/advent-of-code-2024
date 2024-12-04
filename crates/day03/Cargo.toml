@@ -8,6 +8,7 @@ workspace = true
 
 [dependencies]
 regex = { workspace = true, optional = true }
+helpers = { path = "../helpers"}
 
 [features]
 regex=["dep:regex"]

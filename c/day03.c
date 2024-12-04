@@ -78,8 +78,6 @@ static SizeVector create_size_vector(size_t initial_capacity) {
   return vec;
 }
 
-static void free_size_vector(SizeVector *vec) { free(vec->data); }
-
 static void push_back(SizeVector *vec, size_t value) {
   if (vec->size == vec->capacity) {
     vec->capacity = (vec->capacity * 3) / 2; // 1.5x growth
@@ -127,8 +125,8 @@ static int parse_with_rules(const char *message) {
 
   if (do_positions.size == 0 && dont_positions.size == 0) {
     int result = count_mul(message);
-    free_size_vector(&do_positions);
-    free_size_vector(&dont_positions);
+    free(do_positions.data);
+    free(dont_positions.data);
     return result;
   }
 
@@ -153,9 +151,8 @@ static int parse_with_rules(const char *message) {
     }
   }
 
-  free_size_vector(&do_positions);
-  free_size_vector(&dont_positions);
-
+  free(do_positions.data);
+  free(dont_positions.data);
   return count;
 }
 
