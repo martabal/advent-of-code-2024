@@ -31,33 +31,39 @@ read_file(const std::string &input) {
 }
 
 int main() {
-  // --- Part One ---
-  auto [left_column, right_column] = read_file("crates/day01/input.txt");
-  unsigned int sum = 0;
+  try {
+    // --- Part One ---
+    auto [left_column, right_column] = read_file("crates/day01/input.txt");
+    unsigned int sum = 0;
 
-  if (left_column.size() != right_column.size()) {
-    throw std::runtime_error("Column sizes do not match");
+    if (left_column.size() != right_column.size()) {
+      throw std::runtime_error("Column sizes do not match");
+    }
+
+    std::sort(left_column.begin(), left_column.end());
+    std::sort(right_column.begin(), right_column.end());
+
+    for (size_t i = 0; i < left_column.size(); i++) {
+      sum += (static_cast<unsigned int>(
+          std::abs(left_column[i] - right_column[i])));
+    }
+
+    std::cout << "Part One solution: sum is " << sum << std::endl;
+
+    // --- Part Two ---
+    sum = 0;
+    std::vector<unsigned int> appear;
+    for (const auto &e : left_column) {
+      unsigned int count =
+          std::count(right_column.begin(), right_column.end(), e);
+      sum += static_cast<unsigned int>(e) * count;
+    }
+    std::cout << "Part Two solution: sum is " << sum << std::endl;
+
+  } catch (const std::exception &e) {
+    std::cerr << "Error: " << e.what() << '\n';
+    return 1;
   }
-
-  std::sort(left_column.begin(), left_column.end());
-  std::sort(right_column.begin(), right_column.end());
-
-  for (size_t i = 0; i < left_column.size(); i++) {
-    sum +=
-        (static_cast<unsigned int>(std::abs(left_column[i] - right_column[i])));
-  }
-
-  std::cout << "Part One solution: sum is " << sum << std::endl;
-
-  // --- Part Two ---
-  sum = 0;
-  std::vector<unsigned int> appear;
-  for (const auto &e : left_column) {
-    unsigned int count =
-        std::count(right_column.begin(), right_column.end(), e);
-    sum += static_cast<unsigned int>(e) * count;
-  }
-  std::cout << "Part Two solution: sum is " << sum << std::endl;
 
   return 0;
 }

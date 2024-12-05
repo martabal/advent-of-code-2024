@@ -3,15 +3,17 @@ use std::{
     io::{BufRead, BufReader},
 };
 
+use helpers::floored_division;
+
 fn main() {
     let message = read_file("crates/day04/input.txt").unwrap();
     // --- Part One ---
     let mut count = count_word(&message, "XMAS");
-    println!("{count}");
+    println!("Part One solution: {count}");
 
     // --- Part Two ---
     count = count_x_pattern(&message, "MAS").unwrap();
-    println!("{count}");
+    println!("Part Two solution: {count}");
 }
 
 fn read_file(input: &str) -> Result<Vec<Vec<char>>, Box<dyn std::error::Error>> {
@@ -24,15 +26,6 @@ fn read_file(input: &str) -> Result<Vec<Vec<char>>, Box<dyn std::error::Error>> 
         .collect();
 
     Ok(vec_of_vecs)
-}
-
-const fn floored_division(a: i32, b: i32) -> i32 {
-    let quotient = a / b;
-    if (a % b != 0) && ((a < 0) != (b < 0)) {
-        quotient - 1
-    } else {
-        quotient
-    }
 }
 
 fn count_x_pattern(grid: &[Vec<char>], word: &str) -> Result<usize, String> {
