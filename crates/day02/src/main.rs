@@ -16,20 +16,30 @@ fn is_safe(e: &[i32]) -> bool {
 fn main() {
     // --- Part One ---
     let reports = read_file("crates/day02/input.txt").unwrap();
-    let mut count: u32 = 0;
+    let mut count: u32 = find_reports(&reports);
+    println!("Part One solution: sum is {count}");
 
-    for e in &reports {
+    // --- Part Two ---
+    count = find_safe_report(&reports);
+    println!("Part Two solution: sum is {count}");
+}
+
+fn find_reports(reports: &Vec<Vec<i32>>) -> u32 {
+    let mut count: u32 = 0;
+    for e in reports {
         if is_safe(e) {
             count += 1;
         }
     }
-    println!("Part One solution: sum is {count}");
 
-    // --- Part Two ---
-    count = 0;
+    count
+}
+
+fn find_safe_report(reports: &Vec<Vec<i32>>) -> u32 {
+    let mut count = 0;
 
     // not really optimal, ideally the first pass give hints on what element to remove
-    for e in &reports {
+    for e in reports {
         if is_safe(e) {
             count += 1;
         } else {
@@ -44,7 +54,8 @@ fn main() {
             }
         }
     }
-    println!("Part Two solution: sum is {count}");
+
+    count
 }
 
 fn read_file(input: &str) -> Result<Vec<Vec<i32>>, Box<dyn std::error::Error>> {
@@ -62,4 +73,20 @@ fn read_file(input: &str) -> Result<Vec<Vec<i32>>, Box<dyn std::error::Error>> {
     }
 
     Ok(report)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn check_exemple() {
+        let message = read_file("example_input.txt").unwrap();
+
+        let response_part_1 = find_reports(&message);
+        let response_part_2 = find_safe_report(&message);
+
+        assert!(response_part_1 == 2);
+        assert!(response_part_2 == 4);
+    }
 }

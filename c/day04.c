@@ -3,14 +3,12 @@
 #include <stdlib.h>
 #include <string.h>
 
-// Structure to hold the grid
 typedef struct {
   char **data;
   size_t rows;
   size_t cols;
 } Grid;
 
-// Function to read the file and return a Grid structure
 Grid read_file(const char *filename) {
   FILE *file = fopen(filename, "r");
   if (!file) {
@@ -23,14 +21,12 @@ Grid read_file(const char *filename) {
   size_t len = 0;
 
   while (getline(&line, &len, file) != -1) {
-    // Allocate memory for new row
     grid.data = realloc(grid.data, (grid.rows + 1) * sizeof(char *));
     grid.data[grid.rows] = strdup(line);
     grid.rows++;
 
-    // Update columns count if necessary
     if (grid.rows == 1) {
-      grid.cols = strlen(line) - 1; // Exclude newline
+      grid.cols = strlen(line) - 1;
     }
   }
 
@@ -40,16 +36,6 @@ Grid read_file(const char *filename) {
   return grid;
 }
 
-// Floored division implementation
-int floored_division(int a, int b) {
-  int quotient = a / b;
-  if ((a % b != 0) && ((a < 0) != (b < 0))) {
-    return quotient - 1;
-  }
-  return quotient;
-}
-
-// Count occurrences of a word in all directions in the grid
 size_t count_word(const Grid *grid, const char *word) {
   size_t count = 0;
   int word_len = strlen(word);
@@ -85,7 +71,6 @@ size_t count_word(const Grid *grid, const char *word) {
   return count;
 }
 
-// Count occurrences of an X-pattern in the grid
 size_t count_x_pattern(const Grid *grid, const char *word) {
   if (grid->rows == 0) {
     fprintf(stderr, "Grid must be a valid grid\n");
@@ -94,10 +79,9 @@ size_t count_x_pattern(const Grid *grid, const char *word) {
 
   size_t count = 0;
   int word_len = strlen(word);
-  int bounded = floored_division(word_len, 2);
+  int bounded = word_len / 2;
   char middle_char = word[bounded];
 
-  // Reverse the word
   char *reverse_word = strdup(word);
   for (int i = 0; i < word_len / 2; i++) {
     char temp = reverse_word[i];
@@ -174,11 +158,11 @@ void free_grid(Grid *grid) {
 int main() {
   Grid grid = read_file("crates/day04/input.txt");
 
-  // Part One
+  // --- Part One ---
   size_t count = count_word(&grid, "XMAS");
   printf("%zu\n", count);
 
-  // Part Two
+  // --- Part Two ---
   count = count_x_pattern(&grid, "MAS");
   printf("%zu\n", count);
 

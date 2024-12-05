@@ -80,7 +80,7 @@ static SizeVector create_size_vector(size_t initial_capacity) {
 
 static void push_back(SizeVector *vec, size_t value) {
   if (vec->size == vec->capacity) {
-    vec->capacity = (vec->capacity * 3) / 2; // 1.5x growth
+    vec->capacity = (vec->capacity * 3) / 2;
     vec->data = realloc(vec->data, vec->capacity * sizeof(size_t));
   }
   vec->data[vec->size++] = value;

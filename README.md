@@ -15,4 +15,4 @@ Ideally, the solution does not use external crates/dependencies.
 |   2   |   ✅    |   ✅    |   ✅    |   ✅    |   ✅    |   ✅    |
 |   3   |   ✅    |   ✅    |   ✅    |   ✅    |   ✅    |   ✅    |
 |   4   |   ✅    |   ✅    |   ✅    |   ✅    |   ✅    |   ✅    |
-|   5   |   ✅    |   ✅    |   ✅    |   ✅    |   ❌    |   ❌    |
+|   5   |   ✅    |   ✅    |   ✅    |   ✅    |   ✅    |   ✅    |
