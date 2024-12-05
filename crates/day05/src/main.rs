@@ -110,3 +110,20 @@ impl PrintQueueChecker {
             .sum()
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn check_exemple() {
+        let message = read_file("example_input.txt").unwrap();
+
+        let checker = PrintQueueChecker::new(&message);
+        let response_part_1 = checker.check_page_order();
+        let response_part_2 = checker.check_and_sort_page_order();
+
+        assert!(response_part_1 == 143);
+        assert!(response_part_2 == 123);
+    }
+}

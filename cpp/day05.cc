@@ -25,7 +25,7 @@ public:
     int sum = 0;
     for (const auto &order : pageNumbers) {
       if (!checkValid(order)) {
-        auto orderClone = order; // Create a modifiable copy
+        auto orderClone = order;
         while (!checkValid(orderClone)) {
           bool foundRuleBreak = false;
           int oldIdx = 0;
@@ -83,7 +83,6 @@ private:
       rules[right].push_back(left);
     }
 
-    // Read page numbers
     while (std::getline(stream, line)) {
       if (line.empty())
         continue;

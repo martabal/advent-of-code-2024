@@ -16,8 +16,9 @@ fn main() {
     let mut count = grid.count_word("XMAS");
     println!("Part One solution: {count}");
 
-    count = grid.count_x_pattern("XMAS").unwrap();
-    println!("Part One solution: {count}");
+    // --- Part Two ---
+    count = grid.count_x_pattern("MAS").unwrap();
+    println!("Part Two solution: {count}");
 }
 
 fn read_file(input: &str) -> Result<Vec<Vec<char>>, Box<dyn std::error::Error>> {
@@ -36,7 +37,6 @@ impl Grid {
     const fn new(new_grid: Vec<Vec<char>>) -> Self {
         Self { grid: new_grid }
     }
-
     fn count_x_pattern(&self, word: &str) -> Result<usize, String> {
         let rows = self.grid.len();
         let cols = if rows > 0 {
@@ -102,10 +102,11 @@ impl Grid {
     }
 
     fn count_word(&self, word: &str) -> usize {
+        let grid = self.grid.clone();
         let word_chars: Vec<char> = word.chars().collect();
         let word_len = word_chars.len();
-        let rows = self.grid.len();
-        let cols = self.grid[0].len();
+        let rows = grid.len();
+        let cols = grid[0].len();
         let mut count = 0;
 
         let directions = vec![
@@ -140,7 +141,7 @@ impl Grid {
                         let u_x: usize = usize::try_from(x).unwrap();
                         let u_y: usize = usize::try_from(y).unwrap();
 
-                        if self.grid[u_x][u_y] != word_chars[i] {
+                        if grid[u_x][u_y] != word_chars[i] {
                             found = false;
                             break;
                         }
@@ -154,5 +155,22 @@ impl Grid {
         }
 
         count
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn check_exemple() {
+        let message = read_file("example_input.txt").unwrap();
+
+        let grid = Grid::new(message);
+        let response_part_1 = grid.count_word("XMAS");
+        let response_part_2 = grid.count_x_pattern("MAS").unwrap();
+
+        assert!(response_part_1 == 18);
+        assert!(response_part_2 == 9);
     }
 }

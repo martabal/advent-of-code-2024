@@ -6,18 +6,19 @@ use helpers::read_file;
 use regex::Regex;
 
 #[cfg(not(feature = "regex"))]
+#[must_use]
 /// Parses and counts the product of numbers within a "mul(a, b)" format.
 /// # Errors
 /// Returns an error if input parsing fails.
-pub fn count_mul(p: &str) -> Result<i32, Box<dyn std::error::Error>> {
+pub fn count_mul(p: &str) -> i32 {
     let mut parser = ProgramParser::new(p);
-    Ok(parser.parse())
+    parser.parse()
 }
 
 fn main() {
     let message = read_file("crates/day03/input.txt").unwrap();
     // --- Part One ---
-    let mut count = count_mul(&message).unwrap();
+    let mut count = count_mul(&message);
     println!("Part One solution: sum is {count}");
 
     // --- Part Two ---
@@ -128,26 +129,34 @@ fn closest_greater_than(x: usize, y: &[usize]) -> Option<usize> {
 }
 
 fn parse_with_rules(message: &str) -> i32 {
-    let do_positions = find_all_indexes(message, "do()");
+    let mut do_positions = find_all_indexes(message, "do()");
     let dont_positions = find_all_indexes(message, "don't()");
 
     if do_positions.is_empty() && dont_positions.is_empty() {
-        return count_mul(message).unwrap();
+        return count_mul(message);
     }
 
-    let first_substring = &message[..=do_positions[0]];
+    let first_substring = &message[..=dont_positions[0]];
     let mut count = 0;
-    count += count_mul(first_substring).unwrap();
+    count += count_mul(first_substring);
     let mut next_dont: Option<usize> = None;
+    do_positions.retain(|&x| x >= dont_positions[0]);
 
-    for i in do_positions {
-        if next_dont < Some(i) || next_dont.is_none() {
-            if let Some(f) = closest_greater_than(i, &dont_positions) {
-                let substring = &message[i..f];
-
-                count += count_mul(substring).unwrap();
+    for i in &do_positions {
+        if next_dont < Some(*i) || next_dont.is_none() {
+            if let Some(f) = closest_greater_than(*i, &dont_positions) {
+                let substring = &message[*i..f];
+                count += count_mul(substring);
                 next_dont = Some(f);
             }
+        }
+    }
+
+    if let (Some(&do_last), Some(&dont_last)) = (do_positions.last(), dont_positions.last()) {
+        if do_last > dont_last {
+            let last_substring = &message[do_last..];
+            println!("{last_substring}");
+            count += count_mul(last_substring);
         }
     }
 
@@ -155,8 +164,8 @@ fn parse_with_rules(message: &str) -> i32 {
 }
 
 #[cfg(feature = "regex")]
-fn count_mul(message: &str) -> Result<i32, Box<dyn std::error::Error>> {
-    let re = Regex::new(r"mul\(\s*(\d+)\s*,\s*(\d+)\s*\)")?;
+fn count_mul(message: &str) -> i32 {
+    let re = Regex::new(r"mul\(\s*(\d+)\s*,\s*(\d+)\s*\)").unwrap();
 
     let result: i32 = re
         .captures_iter(message)
@@ -167,5 +176,22 @@ fn count_mul(message: &str) -> Result<i32, Box<dyn std::error::Error>> {
         })
         .sum();
 
-    Ok(result)
+    result
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn check_exemple() {
+        let message_part_1 = read_file("example_input_part_1.txt").unwrap();
+        let message_part_2 = read_file("example_input_part_2.txt").unwrap();
+
+        let response_part_1 = count_mul(&message_part_1);
+        let response_part_2 = parse_with_rules(&message_part_2);
+
+        assert!(response_part_1 == 161);
+        assert!(response_part_2 == 48);
+    }
 }

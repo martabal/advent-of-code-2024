@@ -5,7 +5,6 @@
 #include <string>
 #include <vector>
 
-// Function to read the file and return a 2D vector of characters
 std::vector<std::vector<char>> read_file(const std::string &filename) {
   std::ifstream file(filename);
   if (!file.is_open()) {
@@ -21,17 +20,6 @@ std::vector<std::vector<char>> read_file(const std::string &filename) {
   return grid;
 }
 
-// Floored division implementation
-constexpr int floored_division(int a, int b) {
-  int quotient = a / b;
-  if ((a % b != 0) && ((a < 0) != (b < 0))) {
-    return quotient - 1;
-  } else {
-    return quotient;
-  }
-}
-
-// Count occurrences of a word in all directions in the grid
 size_t count_word(const std::vector<std::vector<char>> &grid,
                   const std::string &word) {
   const int rows = grid.size();
@@ -68,7 +56,6 @@ size_t count_word(const std::vector<std::vector<char>> &grid,
   return count;
 }
 
-// Count occurrences of an X-pattern in the grid
 size_t count_x_pattern(const std::vector<std::vector<char>> &grid,
                        const std::string &word) {
   const int rows = grid.size();
@@ -80,7 +67,7 @@ size_t count_x_pattern(const std::vector<std::vector<char>> &grid,
   const int word_len = word.size();
   size_t count = 0;
 
-  const int bounded = floored_division(word_len, 2);
+  const int bounded = word_len / 2;
   char middle_char = word[bounded];
   std::string reverse_word = std::string(word.rbegin(), word.rend());
 
@@ -146,11 +133,11 @@ int main() {
   try {
     auto grid = read_file("crates/day04/input.txt");
 
-    // Part One
+    // --- Part One ---
     size_t count = count_word(grid, "XMAS");
     std::cout << count << '\n';
 
-    // Part Two
+    // --- Part Two ---
     count = count_x_pattern(grid, "MAS");
     std::cout << count << '\n';
   } catch (const std::exception &e) {
