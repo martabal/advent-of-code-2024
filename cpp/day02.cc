@@ -42,35 +42,40 @@ std::vector<std::vector<int>> read_file(const std::string &input) {
 }
 
 int main() {
-  // --- Part One ---
-  auto report = read_file("crates/day02/input.txt");
-  unsigned int safe = 0;
+  try {
+    // --- Part One ---
+    auto report = read_file("crates/day02/input.txt");
+    unsigned int safe = 0;
 
-  for (const auto &e : report) {
-    if (is_safe(e)) {
-      safe++;
+    for (const auto &e : report) {
+      if (is_safe(e)) {
+        safe++;
+      }
     }
-  }
-  std::cout << "Part One solution: sum is " << safe << std::endl;
+    std::cout << "Part One solution: sum is " << safe << std::endl;
 
-  // --- Part Two ---
-  safe = 0;
-  for (const auto &e : report) {
-    if (is_safe(e)) {
-      safe++;
-    } else {
-      for (size_t pos = 0; pos < e.size(); pos++) {
-        std::vector<int> new_e = e;
-        new_e.erase(new_e.begin() + pos);
+    // --- Part Two ---
+    safe = 0;
+    for (const auto &e : report) {
+      if (is_safe(e)) {
+        safe++;
+      } else {
+        for (size_t pos = 0; pos < e.size(); pos++) {
+          std::vector<int> new_e = e;
+          new_e.erase(new_e.begin() + pos);
 
-        if (is_safe(new_e)) {
-          safe++;
-          break;
+          if (is_safe(new_e)) {
+            safe++;
+            break;
+          }
         }
       }
     }
+    std::cout << "Part Two solution: sum is " << safe << std::endl;
+  } catch (const std::exception &e) {
+    std::cerr << "Error: " << e.what() << '\n';
+    return 1;
   }
-  std::cout << "Part Two solution: sum is " << safe << std::endl;
 
   return 0;
 }

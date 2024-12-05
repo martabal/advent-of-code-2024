@@ -154,16 +154,20 @@ std::string readFile(const std::string &filePath) {
 }
 
 int main() {
+  try {
+    std::string message = readFile("crates/day03/input.txt");
 
-  std::string message = readFile("crates/day03/input.txt");
+    // --- Part One ---
+    int count = count_mul(message);
+    std::cout << "Part One solution: sum is " << count << std::endl;
 
-  // --- Part One ---
-  int count = count_mul(message);
-  std::cout << "Part One solution: sum is " << count << std::endl;
-
-  // --- Part Two ---
-  count = parseWithRules(message);
-  std::cout << "Part Two solution: sum is " << count << std::endl;
+    // --- Part Two ---
+    count = parseWithRules(message);
+    std::cout << "Part Two solution: sum is " << count << std::endl;
+  } catch (const std::exception &e) {
+    std::cerr << "Error: " << e.what() << '\n';
+    return 1;
+  }
 
   return 0;
 }
