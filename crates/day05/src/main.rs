@@ -1,4 +1,4 @@
-use std::{collections::HashMap, str::FromStr};
+use std::collections::HashMap;
 
 use helpers::read_file;
 
@@ -10,18 +10,17 @@ struct PrintQueueChecker {
 fn main() {
     let message = read_file("crates/day05/input.txt").unwrap();
     // --- Part One ---
-    let checker = PrintQueueChecker::from_str(&message).unwrap();
+    let checker = PrintQueueChecker::new(&message);
     println!("Part One solution: {}", checker.check_page_order());
 
     // --- Part Two ---
     println!("Part Two solution: {}", checker.check_and_sort_page_order());
 }
 
-impl FromStr for PrintQueueChecker {
-    type Err = String;
-    fn from_str(puzzle: &str) -> Result<Self, Self::Err> {
+impl PrintQueueChecker {
+    fn new(content: &str) -> Self {
         let mut rules = HashMap::new();
-        puzzle
+        content
             .lines()
             .take_while(|l| !l.is_empty())
             .filter_map(|l| {
@@ -34,21 +33,18 @@ impl FromStr for PrintQueueChecker {
                 rules.entry(right).or_insert(vec![]).push(left);
             });
 
-        let page_numbers = puzzle
+        let page_numbers = content
             .lines()
             .skip_while(|x| !x.is_empty())
             .skip(1)
             .filter_map(|l| l.split(',').map(|x| x.parse().ok()).collect())
             .collect();
-
-        Ok(Self {
+        Self {
             rules,
             page_numbers,
-        })
+        }
     }
-}
 
-impl PrintQueueChecker {
     fn check_valid(&self, order: &[i32]) -> bool {
         assert!(order.len() % 2 == 1);
         for (idx, val) in order.iter().enumerate() {

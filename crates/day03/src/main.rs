@@ -1,5 +1,3 @@
-use std::str::FromStr;
-
 #[cfg(not(feature = "regex"))]
 use std::{iter::Peekable, str::Chars};
 
@@ -7,26 +5,12 @@ use helpers::read_file;
 #[cfg(feature = "regex")]
 use regex::Regex;
 
-#[derive(Debug, Eq, PartialEq)]
-pub struct Problem {
-    program: String,
-}
-
-impl FromStr for Problem {
-    type Err = String;
-
-    fn from_str(s: &str) -> Result<Self, Self::Err> {
-        Ok(Self { program: s.into() })
-    }
-}
-
 #[cfg(not(feature = "regex"))]
 /// Parses and counts the product of numbers within a "mul(a, b)" format.
 /// # Errors
 /// Returns an error if input parsing fails.
 pub fn count_mul(p: &str) -> Result<i32, Box<dyn std::error::Error>> {
-    let program: Problem = p.parse()?;
-    let mut parser = ProgramParser::new(&program.program);
+    let mut parser = ProgramParser::new(p);
     Ok(parser.parse())
 }
 
@@ -87,11 +71,11 @@ impl<'a> ProgramParser<'a> {
 
     fn parse_mul(&mut self) -> bool {
         if self.iterator.peek() == Some(&'m') {
-            let _ = self.iterator.next();
+            self.iterator.next();
             if self.iterator.peek() == Some(&'u') {
-                let _ = self.iterator.next();
+                self.iterator.next();
                 if self.iterator.peek() == Some(&'l') {
-                    let _ = self.iterator.next();
+                    self.iterator.next();
 
                     return true;
                 }
@@ -109,7 +93,7 @@ impl<'a> ProgramParser<'a> {
                 if c.is_ascii_digit() {
                     digits.push(*c);
 
-                    let _ = self.iterator.next();
+                    self.iterator.next();
 
                     continue;
                 }
