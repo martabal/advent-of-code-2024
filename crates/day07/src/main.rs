@@ -4,7 +4,9 @@ struct Calibration {
     equations: Vec<(u64, Vec<u64>)>,
 }
 
-impl Calibration {
+struct Operator;
+
+impl Operator {
     const fn add(a: u64, b: u64) -> u64 {
         a + b
     }
@@ -17,6 +19,9 @@ impl Calibration {
         let concatenated = format!("{a}{b}");
         concatenated.parse().unwrap()
     }
+}
+
+impl Calibration {
     fn new(content: &str) -> Self {
         let equations = content
             .lines()
@@ -40,8 +45,7 @@ impl Calibration {
         let mut count = 0;
 
         for (result, equation) in &self.equations {
-            let results = Self::compute_combinations(equation, operators);
-            if results.contains(result) {
+            if Self::compute_combinations(equation, operators, *result) {
                 count += result;
             }
         }
@@ -49,29 +53,31 @@ impl Calibration {
         count
     }
 
-    fn compute_combinations(values: &[u64], operators: &[fn(u64, u64) -> u64]) -> Vec<u64> {
+    fn compute_combinations(
+        values: &[u64],
+        operators: &[fn(u64, u64) -> u64],
+        is_result: u64,
+    ) -> bool {
         let num_values = values.len();
+        assert!(num_values >= 2);
         let num_operators = num_values - 1;
         let total_combinations = operators.len().pow(u32::try_from(num_operators).unwrap());
-
-        let mut results = Vec::new();
 
         for combination in 0..total_combinations {
             let mut result = values[0];
             let mut current_combination = combination;
 
             for i in 0..num_operators {
-                let operator_index = current_combination % operators.len(); // Extract operator index
-                current_combination /= operators.len(); // Move to the next operator
+                let operator_index = current_combination % operators.len();
+                current_combination /= operators.len();
 
-                // Apply the operator
                 result = operators[operator_index](result, values[i + 1]);
             }
-
-            results.push(result);
+            if is_result == result {
+                return true;
+            }
         }
-
-        results
+        false
     }
 }
 
@@ -80,11 +86,11 @@ fn main() {
 
     // --- Part One ---
     let checker = Calibration::new(&message);
-    let mut operators: Vec<fn(u64, u64) -> u64> = vec![Calibration::add, Calibration::multiply];
+    let mut operators: Vec<fn(u64, u64) -> u64> = vec![Operator::add, Operator::multiply];
     let mut count = checker.compute_calibration(&operators);
     println!("Part One solution: {count}");
     // --- Part Two ---
-    operators.push(Calibration::concatenate);
+    operators.push(Operator::concatenate);
     count = checker.compute_calibration(&operators);
     println!("Part Two solution: {count}");
 }
@@ -98,9 +104,9 @@ mod tests {
         let message = read_file("example_input.txt").unwrap();
 
         let checker = Calibration::new(&message);
-        let mut operators: Vec<fn(u64, u64) -> u64> = vec![Calibration::add, Calibration::multiply];
+        let mut operators: Vec<fn(u64, u64) -> u64> = vec![Operator::add, Operator::multiply];
         let response_part_1 = checker.compute_calibration(&operators);
-        operators.push(Calibration::concatenate);
+        operators.push(Operator::concatenate);
         let response_part_2 = checker.compute_calibration(&operators);
 
         assert!(response_part_1 == 3749);

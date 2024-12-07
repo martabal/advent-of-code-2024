@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <cassert>
 #include <cmath>
 #include <cstdint>
 #include <fstream>
@@ -11,7 +12,6 @@
 struct Calibration {
   std::vector<std::pair<uint64_t, std::vector<uint64_t>>> equations;
 
-  // Static methods for operations
   static uint64_t add(uint64_t a, uint64_t b) { return a + b; }
 
   static uint64_t multiply(uint64_t a, uint64_t b) { return a * b; }
@@ -22,7 +22,6 @@ struct Calibration {
     return std::stoull(oss.str());
   }
 
-  // Constructor to parse input
   Calibration(const std::string &content) {
     std::istringstream iss(content);
     std::string line;
@@ -47,15 +46,14 @@ struct Calibration {
     }
   }
 
-  // Compute calibration
   uint64_t compute_calibration(
       const std::vector<std::function<uint64_t(uint64_t, uint64_t)>> &operators)
       const {
     uint64_t count = 0;
 
     for (const auto &[result, equation] : equations) {
-      auto results = compute_combinations(equation, operators);
-      if (std::find(results.begin(), results.end(), result) != results.end()) {
+      auto is_correct = compute_combinations(equation, operators, result);
+      if (is_correct) {
         count += result;
       }
     }
@@ -63,19 +61,17 @@ struct Calibration {
     return count;
   }
 
-  // Compute combinations
-  static std::vector<uint64_t> compute_combinations(
+  static bool compute_combinations(
       const std::vector<uint64_t> &values,
-      const std::vector<std::function<uint64_t(uint64_t, uint64_t)>>
-          &operators) {
+      const std::vector<std::function<uint64_t(uint64_t, uint64_t)>> &operators,
+      const uint64_t &is_result) {
     size_t num_values = values.size();
+    assert(num_values > 2);
     size_t num_operators = num_values - 1;
     size_t total_combinations = std::pow(operators.size(), num_operators);
 
-    std::vector<uint64_t> results;
-
     for (size_t combination = 0; combination < total_combinations;
-         ++combination) {
+         combination++) {
       uint64_t result = values[0];
       size_t current_combination = combination;
 
@@ -86,14 +82,15 @@ struct Calibration {
         result = operators[operator_index](result, values[i + 1]);
       }
 
-      results.push_back(result);
+      if (result == is_result) {
+        return true;
+      }
     }
 
-    return results;
+    return false;
   }
 };
 
-// Utility function to read a file
 std::string read_file(const std::string &file_path) {
   std::ifstream file(file_path);
   if (!file) {

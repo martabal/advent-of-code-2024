@@ -85,5 +85,5 @@ jobs:
       - name: Build
         run: |
           for file in c/*.c; do
-              gcc "$file" -o "${file%.c}"
+              gcc "$file" -o "${file%.c}" -lm
           done
