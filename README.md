@@ -17,4 +17,4 @@ Ideally, the solution does not use external crates/dependencies.
 |   4   |   ✅    |   ✅    |   ✅    |   ✅    |   ✅    |   ✅    |
 |   5   |   ✅    |   ✅    |   ✅    |   ✅    |   ✅    |   ✅    |
 |   6   |   ✅    |   ✅    |   ✅    |   ✅    |   ✅    |   ✅    |
-|   7   |   ✅    |   ✅    |   ✅    |   ✅    |   ❌    |   ❌    |
+|   7   |   ✅    |   ✅    |   ✅    |   ✅    |   ✅    |   ✅    |
