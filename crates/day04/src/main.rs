@@ -9,15 +9,18 @@ struct Grid {
     grid: Vec<Vec<char>>,
 }
 
+const WORD_PART_ONE: &str = "XMAS";
+const WORD_PART_TWO: &str = "MAS";
+
 fn main() {
     let message = read_file("crates/day04/input.txt").unwrap();
     // --- Part One ---
     let grid = Grid::new(message);
-    let mut count = grid.count_word("XMAS");
+    let mut count = grid.count_word(WORD_PART_ONE);
     println!("Part One solution: {count}");
 
     // --- Part Two ---
-    count = grid.count_x_pattern("MAS").unwrap();
+    count = grid.count_x_pattern(WORD_PART_TWO).unwrap();
     println!("Part Two solution: {count}");
 }
 
@@ -167,10 +170,22 @@ mod tests {
         let message = read_file("example_input.txt").unwrap();
 
         let grid = Grid::new(message);
-        let response_part_1 = grid.count_word("XMAS");
-        let response_part_2 = grid.count_x_pattern("MAS").unwrap();
+        let response_part_1 = grid.count_word(WORD_PART_ONE);
+        let response_part_2 = grid.count_x_pattern(WORD_PART_TWO).unwrap();
 
         assert!(response_part_1 == 18);
         assert!(response_part_2 == 9);
+    }
+
+    #[test]
+    fn check_result() {
+        let message = read_file("input.txt").unwrap();
+
+        let grid = Grid::new(message);
+        let response_part_1 = grid.count_word(WORD_PART_ONE);
+        let response_part_2 = grid.count_x_pattern(WORD_PART_TWO).unwrap();
+
+        assert!(response_part_1 == 2543);
+        assert!(response_part_2 == 1930);
     }
 }

@@ -1,4 +1,4 @@
-use std::{collections::HashSet, fmt};
+use std::collections::HashSet;
 
 use helpers::read_file;
 
@@ -21,12 +21,6 @@ enum Direction {
     Down,
     Left,
     Right,
-}
-
-impl fmt::Display for Direction {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "{self:?}")
-    }
 }
 
 fn main() {
@@ -111,8 +105,7 @@ impl Lab {
 
                     let mut direction = Direction::Up;
                     let mut current_position = self.pos_init;
-                    let mut detect_loop: HashSet<((usize, usize), (usize, usize), String)> =
-                        HashSet::new();
+                    let mut detect_loop: HashSet<((usize, usize), (usize, usize))> = HashSet::new();
 
                     if self.pos_init.1 == 0
                         || (self.pos_init.1 > 0
@@ -137,13 +130,12 @@ impl Lab {
                                     second_try = false;
                                 }
                             } else if let Some(new_block) = block {
-                                let str_direction = direction.to_string();
-                                let blocking = (current_position, new_block, str_direction);
-                                let new_direction = Self::change_direction(&direction);
+                                let blocking = (current_position, new_block);
                                 if detect_loop.contains(&blocking) {
                                     count += 1;
                                     break;
                                 }
+                                let new_direction = Self::change_direction(&direction);
                                 detect_loop.insert(blocking);
                                 second_try = true;
                                 direction = new_direction;
@@ -228,5 +220,17 @@ mod tests {
 
         assert!(response_part_1 == 41);
         assert!(response_part_2 == 6);
+    }
+
+    #[test]
+    fn check_result() {
+        let message = read_file("input.txt").unwrap();
+
+        let mut checker = Lab::new(&message).unwrap();
+        let response_part_1 = checker.find_path();
+        let response_part_2 = checker.find_if_stuck();
+
+        assert!(response_part_1 == 4374);
+        assert!(response_part_2 == 1705);
     }
 }

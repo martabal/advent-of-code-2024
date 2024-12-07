@@ -194,4 +194,15 @@ mod tests {
         assert!(response_part_1 == 161);
         assert!(response_part_2 == 48);
     }
+
+    #[test]
+    fn check_result() {
+        let message = read_file("input.txt").unwrap();
+
+        let response_part_1 = count_mul(&message);
+        let response_part_2 = parse_with_rules(&message);
+
+        assert!(response_part_1 == 164730528);
+        assert!(response_part_2 == 70478672);
+    }
 }

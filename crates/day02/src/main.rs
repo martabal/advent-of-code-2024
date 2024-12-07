@@ -89,4 +89,15 @@ mod tests {
         assert!(response_part_1 == 2);
         assert!(response_part_2 == 4);
     }
+
+    #[test]
+    fn check_result() {
+        let message = read_file("input.txt").unwrap();
+
+        let response_part_1 = find_reports(&message);
+        let response_part_2 = find_safe_report(&message);
+
+        assert!(response_part_1 == 486);
+        assert!(response_part_2 == 540);
+    }
 }

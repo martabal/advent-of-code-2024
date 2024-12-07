@@ -72,8 +72,7 @@ public:
           grid[row][col] = OBJECT;
           Direction direction = Direction::Up;
           auto current_position = pos_init;
-          set<tuple<pair<size_t, size_t>, pair<size_t, size_t>, string>>
-              detect_loop;
+          set<tuple<pair<size_t, size_t>, pair<size_t, size_t>>> detect_loop;
 
           if (pos_init.second == 0 ||
               (pos_init.second > 0 &&
@@ -95,14 +94,12 @@ public:
                 second_try = false;
               }
             } else if (block.has_value()) {
-              string str_direction = to_string(static_cast<int>(direction));
-              auto blocking =
-                  make_tuple(current_position, block.value(), str_direction);
-              direction = changeDirection(direction);
+              auto blocking = make_tuple(current_position, block.value());
               if (detect_loop.count(blocking)) {
                 count += 1;
                 break;
               }
+              direction = changeDirection(direction);
               detect_loop.insert(blocking);
               second_try = true;
             }
@@ -202,6 +199,8 @@ private:
       return Direction::Down;
     case Direction::Down:
       return Direction::Left;
+    case Direction::Left:
+      return Direction::Up;
     }
     return Direction::Up;
   }

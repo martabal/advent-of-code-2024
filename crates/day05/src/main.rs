@@ -126,4 +126,16 @@ mod tests {
         assert!(response_part_1 == 143);
         assert!(response_part_2 == 123);
     }
+
+    #[test]
+    fn check_result() {
+        let message = read_file("input.txt").unwrap();
+
+        let checker = PrintQueueChecker::new(&message);
+        let response_part_1 = checker.check_page_order();
+        let response_part_2 = checker.check_and_sort_page_order();
+
+        assert!(response_part_1 == 7365);
+        assert!(response_part_2 == 5770);
+    }
 }
