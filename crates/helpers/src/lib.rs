@@ -3,6 +3,11 @@ use std::{
     io::{BufReader, Read},
 };
 
+pub struct GridSize {
+    pub rows: i32,
+    pub cols: i32,
+}
+
 /// # Errors
 /// Returns an error if reading file fails.
 pub fn read_file(file_path: &str) -> Result<String, Box<dyn std::error::Error>> {
