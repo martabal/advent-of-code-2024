@@ -1,3 +1,4 @@
+#include "helpers.h"
 #include <algorithm>
 #include <cmath>
 #include <fstream>
@@ -140,19 +141,9 @@ private:
   GridSize grid;
 };
 
-std::string read_file(const std::string &filename) {
-  std::ifstream file(filename);
-  if (!file) {
-    throw std::runtime_error("Could not open the file");
-  }
-  std::stringstream buffer;
-  buffer << file.rdbuf();
-  return buffer.str();
-}
-
 int main() {
   try {
-    std::string message = read_file("crates/day08/input.txt");
+    std::string message = readFile("crates/day08/input.txt");
 
     // --- Part One ---
     Antenna checker(message);

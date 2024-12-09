@@ -1,3 +1,4 @@
+#include "helpers.h"
 #include <fstream>
 #include <iostream>
 #include <optional>
@@ -205,16 +206,6 @@ private:
     return Direction::Up;
   }
 };
-
-string readFile(const string &filename) {
-  ifstream file(filename);
-  if (!file.is_open()) {
-    throw runtime_error("Could not open file");
-  }
-  stringstream buffer;
-  buffer << file.rdbuf();
-  return buffer.str();
-}
 
 int main() {
   try {

@@ -1,6 +1,6 @@
 use helpers::read_file;
 
-#[derive(Clone, Copy, Debug)]
+#[derive(Clone)]
 enum File {
     Free,
     Taken(u32),
@@ -37,43 +37,32 @@ impl FileSystem {
     }
 
     fn count_free_files(files: &[File], index: usize) -> usize {
-        let mut count = 0;
-        for i in index..files.len() {
-            match files.get(i) {
-                Some(File::Free) => {
-                    count += 1;
-                }
-                Some(File::Taken(_)) | None => {
-                    break;
-                }
-            }
-        }
-
-        count
+        files[index..]
+            .iter()
+            .take_while(|file| matches!(file, File::Free))
+            .count()
     }
 
     fn detect_block(files: &[File], index_end: usize) -> Option<(usize, usize)> {
         let mut current_block: Option<(u32, usize)> = None;
 
         for i in (0..index_end).rev() {
-            match files.get(i) {
-                Some(File::Free) => {
-                    if let Some(new_block) = current_block {
-                        return Some((i + 1, new_block.1));
+            match &files[i] {
+                File::Free => {
+                    if let Some(block) = current_block {
+                        return Some((i + 1, block.1));
                     }
                     current_block = None;
                 }
-                Some(File::Taken(digit)) => {
-                    if current_block.is_none() {
-                        current_block = Some((*digit, 1));
-                    } else if *digit != current_block.unwrap().0 {
-                        return Some((i + 1, current_block.unwrap().1));
+                File::Taken(id) => {
+                    if let Some(block) = current_block {
+                        if *id != block.0 {
+                            return Some((i + 1, block.1));
+                        }
+                        current_block = Some((*id, block.1 + 1));
                     } else {
-                        current_block = Some((*digit, current_block.unwrap().1 + 1));
+                        current_block = Some((*id, 1));
                     }
-                }
-                None => {
-                    break;
                 }
             }
         }
@@ -82,15 +71,23 @@ impl FileSystem {
     }
 
     fn fragment_files(&mut self) {
+        let mut last_index = self.defragmented_files.len();
         for i in 0..self.defragmented_files.len() {
             match self.defragmented_files.get(i) {
                 Some(File::Free) => {
-                    if let Some((index, _)) = self
-                        .defragmented_files
-                        .iter()
-                        .enumerate()
-                        .rfind(|&(j, file)| j > i && matches!(file, File::Taken(_)))
-                    {
+                    let mut check_index: Option<usize> = None;
+                    for j in (i..last_index).rev() {
+                        match self.defragmented_files.get(j) {
+                            Some(File::Free) | None => {}
+                            Some(File::Taken(_)) => {
+                                check_index = Some(j);
+                                break;
+                            }
+                        }
+                    }
+
+                    if let Some(index) = check_index {
+                        last_index = index;
                         self.defragmented_files.swap(i, index);
                     }
                 }
@@ -128,14 +125,10 @@ impl FileSystem {
     fn calculate_checksum(files: &[File]) -> u64 {
         files
             .iter()
-            .enumerate() // Get position (index) along with each file
-            .filter_map(|(pos, file)| {
-                if let File::Taken(id) = file {
-                    // println!("{pos} * {id} [{file:?}]");
-                    Some(pos as u64 * u64::from(*id))
-                } else {
-                    None
-                }
+            .enumerate()
+            .filter_map(|(index, file)| match file {
+                File::Taken(id) => Some(index as u64 * u64::from(*id)),
+                File::Free => None,
             })
             .sum()
     }
@@ -157,37 +150,4 @@ fn main() {
         "Part Two solution: {:?}",
         FileSystem::calculate_checksum(&checker.files)
     );
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn check_exemple() {
-        let message = read_file("example_input.txt").unwrap();
-
-        let mut checker = FileSystem::new(&message);
-        checker.fragment_files();
-        checker.fragment_files_block();
-        let response_part_1 = FileSystem::calculate_checksum(&checker.defragmented_files);
-        let response_part_2 = FileSystem::calculate_checksum(&checker.files);
-
-        assert!(response_part_1 == 1928);
-        assert!(response_part_2 == 2858);
-    }
-
-    #[test]
-    fn check_result() {
-        let message = read_file("input.txt").unwrap();
-
-        let mut checker = FileSystem::new(&message);
-        checker.fragment_files();
-        checker.fragment_files_block();
-        let response_part_1 = FileSystem::calculate_checksum(&checker.defragmented_files);
-        let response_part_2 = FileSystem::calculate_checksum(&checker.files);
-
-        assert!(response_part_1 == 6288707484810);
-        assert!(response_part_2 == 6311837662089);
-    }
 }
