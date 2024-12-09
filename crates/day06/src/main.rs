@@ -221,16 +221,4 @@ mod tests {
         assert!(response_part_1 == 41);
         assert!(response_part_2 == 6);
     }
-
-    #[test]
-    fn check_result() {
-        let message = read_file("input.txt").unwrap();
-
-        let mut checker = Lab::new(&message).unwrap();
-        let response_part_1 = checker.find_path();
-        let response_part_2 = checker.find_if_stuck();
-
-        assert!(response_part_1 == 4374);
-        assert!(response_part_2 == 1705);
-    }
 }

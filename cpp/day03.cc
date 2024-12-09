@@ -1,3 +1,4 @@
+#include "helpers.h"
 #include <cctype>
 #include <fstream>
 #include <iostream>
@@ -140,17 +141,6 @@ int parseWithRules(const std::string &message) {
   }
 
   return count;
-}
-
-std::string readFile(const std::string &filePath) {
-  std::ifstream file(filePath);
-  if (!file.is_open()) {
-    throw std::runtime_error("Unable to open file: " + filePath);
-  }
-
-  std::ostringstream content;
-  content << file.rdbuf();
-  return content.str();
 }
 
 int main() {

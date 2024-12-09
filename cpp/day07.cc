@@ -1,3 +1,4 @@
+#include "helpers.h"
 #include <algorithm>
 #include <cassert>
 #include <cmath>
@@ -91,20 +92,9 @@ struct Calibration {
   }
 };
 
-std::string read_file(const std::string &file_path) {
-  std::ifstream file(file_path);
-  if (!file) {
-    throw std::runtime_error("Could not open file: " + file_path);
-  }
-
-  std::ostringstream buffer;
-  buffer << file.rdbuf();
-  return buffer.str();
-}
-
 int main() {
   try {
-    std::string message = read_file("crates/day07/input.txt");
+    std::string message = readFile("crates/day07/input.txt");
 
     // --- Part One ---
     Calibration checker(message);
