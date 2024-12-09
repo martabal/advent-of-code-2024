@@ -1,3 +1,4 @@
+#include "helpers.h"
 #include <ctype.h>
 #include <stdbool.h>
 #include <stdio.h>
@@ -154,24 +155,6 @@ static int parse_with_rules(const char *message) {
   free(do_positions.data);
   free(dont_positions.data);
   return count;
-}
-
-static char *read_file(const char *file_path) {
-  FILE *file = fopen(file_path, "r");
-  if (!file) {
-    perror("Unable to open file");
-    exit(EXIT_FAILURE);
-  }
-
-  fseek(file, 0, SEEK_END);
-  long file_size = ftell(file);
-  rewind(file);
-
-  char *content = malloc(file_size + 1);
-  fread(content, 1, file_size, file);
-  content[file_size] = '\0';
-  fclose(file);
-  return content;
 }
 
 int main() {
