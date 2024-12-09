@@ -133,7 +133,7 @@ fn main() {
     let checker = Antenna::new(&message);
     println!("Part One solution: {:?}", checker.count_antennas(false));
     // --- Part Two ---
-    println!("Part One solution: {:?}", checker.count_antennas(true));
+    println!("Part Two solution: {:?}", checker.count_antennas(true));
 }
 
 #[cfg(test)]
