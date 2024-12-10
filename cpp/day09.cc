@@ -176,8 +176,8 @@ int main() {
     std::cout << "Part Two solution: "
               << FileSystem::calculateChecksum(checker.getFiles()) << "\n";
 
-  } catch (const std::exception &ex) {
-    std::cerr << "Error: " << ex.what() << "\n";
+  } catch (const std::exception &e) {
+    std::cerr << "Error: " << e.what() << "\n";
     return 1;
   }
   return 0;

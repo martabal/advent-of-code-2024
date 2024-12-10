@@ -211,8 +211,10 @@ int main() {
   try {
     string message = readFile("crates/day06/input.txt");
     Lab grid(message);
+
     // --- Part One ---
     cout << "Part One solution: " << grid.findPath() << endl;
+
     // --- Part Two ---
     cout << "Part Two solution: " << grid.findIfStuck() << endl;
   } catch (const exception &e) {
