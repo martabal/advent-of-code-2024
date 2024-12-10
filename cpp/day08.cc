@@ -154,7 +154,7 @@ int main() {
     std::cout << "Part Two solution: " << checker.count_antennas(true)
               << std::endl;
   } catch (const std::exception &e) {
-    std::cerr << e.what() << std::endl;
+    std::cerr << "Error: " << e.what() << "\n";
   }
 
   return 0;

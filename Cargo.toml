@@ -10,6 +10,7 @@ members = [
     "crates/day07",
     "crates/day08",
     "crates/day09",
+    "crates/day10",
     "crates/helpers",
 ]
 
