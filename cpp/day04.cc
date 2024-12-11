@@ -135,13 +135,13 @@ int main() {
 
     // --- Part One ---
     size_t count = count_word(grid, "XMAS");
-    std::cout << count << '\n';
+    std::cout << count << std::endl;
 
     // --- Part Two ---
     count = count_x_pattern(grid, "MAS");
-    std::cout << count << '\n';
+    std::cout << count << std::endl;
   } catch (const std::exception &e) {
-    std::cerr << "Error: " << e.what() << '\n';
+    std::cerr << "Error: " << e.what() << std::endl;
     return 1;
   }
 

@@ -11,8 +11,15 @@ members = [
     "crates/day08",
     "crates/day09",
     "crates/day10",
+    "crates/day11",
     "crates/helpers",
 ]
+
+[workspace.package]
+authors = ["martabal"]
+edition = "2021"
+rust-version = "1.83"
+license = "MIT"
 
 [workspace.dependencies]
 regex = "1.11.1"

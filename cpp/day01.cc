@@ -61,7 +61,7 @@ int main() {
     std::cout << "Part Two solution: sum is " << sum << std::endl;
 
   } catch (const std::exception &e) {
-    std::cerr << "Error: " << e.what() << '\n';
+    std::cerr << "Error: " << e.what() << std::endl;
     return 1;
   }
 

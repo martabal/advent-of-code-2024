@@ -9,6 +9,17 @@ struct Grid {
     grid: Vec<Vec<char>>,
 }
 
+const DIRECTIONS: [(isize, isize); 8] = [
+    (0, 1),   // Horizontal right
+    (0, -1),  // Horizontal left
+    (1, 0),   // Vertical down
+    (-1, 0),  // Vertical up
+    (1, 1),   // Diagonal down-right
+    (1, -1),  // Diagonal down-left
+    (-1, 1),  // Diagonal up-right
+    (-1, -1), // Diagonal up-left
+];
+
 const WORD_PART_ONE: &str = "XMAS";
 const WORD_PART_TWO: &str = "MAS";
 
@@ -112,20 +123,9 @@ impl Grid {
         let cols = grid[0].len();
         let mut count = 0;
 
-        let directions = vec![
-            (0, 1),   // Horizontal right
-            (0, -1),  // Horizontal left
-            (1, 0),   // Vertical down
-            (-1, 0),  // Vertical up
-            (1, 1),   // Diagonal down-right
-            (1, -1),  // Diagonal down-left
-            (-1, 1),  // Diagonal up-right
-            (-1, -1), // Diagonal up-left
-        ];
-
         for row in 0..rows {
             for col in 0..cols {
-                for (dx, dy) in &directions {
+                for (dx, dy) in &DIRECTIONS {
                     let mut found = true;
 
                     for (i, _) in word_chars.iter().enumerate().take(word_len) {

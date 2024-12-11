@@ -100,7 +100,6 @@ fn main() {
     println!("Part Two solution: {}", checker.count_distinct_trailheads());
 }
 
-
 #[cfg(test)]
 mod tests {
     use super::*;

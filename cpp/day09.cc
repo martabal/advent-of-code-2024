@@ -169,15 +169,15 @@ int main() {
     checker.fragmentFiles();
     std::cout << "Part One solution: "
               << FileSystem::calculateChecksum(checker.getDefragmentedFiles())
-              << "\n";
+              << std::endl;
 
     // --- Part Two ---
     checker.fragmentFilesBlock();
     std::cout << "Part Two solution: "
-              << FileSystem::calculateChecksum(checker.getFiles()) << "\n";
+              << FileSystem::calculateChecksum(checker.getFiles()) << std::endl;
 
   } catch (const std::exception &e) {
-    std::cerr << "Error: " << e.what() << "\n";
+    std::cerr << "Error: " << e.what() << std::endl;
     return 1;
   }
   return 0;
